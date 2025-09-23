@@ -39,7 +39,7 @@ jobs:
       - name: Download synthetic datasets
         run: |
           options(timeout = 600)
-          omock::
+          omock::downloadMockDataset(datasetName = "empty_cdm")
         shell: Rscript {0}
 
       - name: Set up Quarto
