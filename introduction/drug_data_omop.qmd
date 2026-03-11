@@ -1,0 +1,3 @@
+# Drug data in the OMOP CDM
+
+The OMOP CDM is a domain organised Common Data Model. Clinical data (events) are recorded into different Clinical tables depending on its domain: for example, drugs records (Drug domain) are recorded in the Drug Exposure table or condition records (Condition domain). In the following table you can see 

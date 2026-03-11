@@ -11,13 +11,15 @@
 -   Introduction
     -   Drug Utilisation studies
     -   Drug data in the OMOP CDM
+    -   Drug vocabularies
+    -   Dose form and routes
+    -   Standard vs source
     -   Synthetic data used
 -   Drug Users identification
     -   Create drug codelists
         -   Stratify and subset codelists
         -   Import and export codelists
     -   Diagnostics
-        -   DrugExposureDiagnostics
         -   PhenotypeR
         -   Dose calculation
     -   Identify users
@@ -42,6 +44,7 @@
         -   Indication in the data base
         -   Phenotype Driven indication
         -   Data Driven indication
+        -   Linked indication
     -   Drug use
         -   How to calculate daily dose?
         -   Summarise drug use
@@ -51,6 +54,7 @@
     -   Discontinuation
         -   As survival
         -   Proportion of patients covered
+        -   Multistate analysis
     -   Drug switching
         -   Drug restart and drug switching
         -   Treatment pathways
