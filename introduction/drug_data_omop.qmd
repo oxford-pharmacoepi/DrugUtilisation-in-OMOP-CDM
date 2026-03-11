@@ -1,3 +1,170 @@
 # Drug data in the OMOP CDM
 
 The OMOP CDM is a domain organised Common Data Model. Clinical data (events) are recorded into different Clinical tables depending on its domain: for example, drugs records (Drug domain) are recorded in the Drug Exposure table or condition records (Condition domain). In the following table you can see 
+
+```{r}
+cdm <- omock::mockCdmFromDataset(datasetName = "synthea-covid19-10k", source = "duckdb")
+ingredients <- cdm$concept |>
+  dplyr::filter(concept_class_id == "Ingredient")
+drugs <- cdm$concept |>
+  dplyr::filter(domain_id == "Drug", standard_concept == "S")
+```
+
+number of records per vocabulary
+
+```{r}
+x <- drugs |>
+  dplyr::group_by(vocabulary_id) |>
+  dplyr::tally() |>
+  dplyr::collect()
+ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = vocabulary_id, y = n, fill = vocabulary_id)) +
+  ggplot2::geom_col() +
+  ggplot2::theme(legend.position = "top")
+```
+
+class concept id
+
+```{r}
+x <- drugs |>
+  dplyr::group_by(concept_class_id) |>
+  dplyr::tally() |>
+  dplyr::collect()
+ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = concept_class_id, y = n, fill = concept_class_id)) +
+  ggplot2::geom_col() +
+  ggplot2::theme(legend.position = "top")
+```
+
+number of ingredients per concept
+
+```{r}
+x <- drugs |>
+  dplyr::inner_join(
+    cdm$concept_ancestor |>
+      dplyr::inner_join(
+        ingredients |>
+          dplyr::select("ancestor_concept_id" = "concept_id"),
+        by = "ancestor_concept_id"
+      ) |>
+      dplyr::select("concept_id" = "descendant_concept_id", "ancestor_concept_id"),
+    by = "concept_id"
+  ) |>
+  dplyr::group_by(concept_id) |>
+  dplyr::summarise(n = dplyr::n_distinct(ancestor_concept_id)) |>
+  dplyr::right_join(drugs, by = "concept_id") |>
+  dplyr::mutate(number_ingredients = dplyr::coalesce(n, 0)) |>
+  dplyr::mutate(number_ingredients = dplyr::if_else(
+    number_ingredients < 10, as.character(as.integer(number_ingredients)), "10+"
+  )) |>
+  dplyr::group_by(number_ingredients) |>
+  dplyr::tally() |>
+  dplyr::collect() |>
+  dplyr::mutate(
+    number_ingredients = factor(
+      number_ingredients, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    ),
+    percentage = sprintf("%.1f", 100 * n / sum(n)),
+    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+  )
+ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_ingredients, y = n, fill = number_ingredients, label = percentage)) +
+  ggplot2::geom_col() +
+  ggplot2::theme(legend.position = "top") +
+  ggplot2::geom_text()
+```
+
+number of brands per concept
+```{r}
+x <- drugs |>
+  dplyr::inner_join(
+     cdm$concept_relationship |> 
+       dplyr::filter(relationship_id == "Has brand name") |> 
+       dplyr::rename("concept_id" = "concept_id_1"),
+    by = "concept_id"
+  ) |>
+  dplyr::group_by(concept_id) |>
+  dplyr::summarise(n = dplyr::n_distinct(concept_id_2)) |>
+  dplyr::right_join(drugs, by = "concept_id") |>
+  dplyr::mutate(number_brands = dplyr::coalesce(n, 0)) |>
+  dplyr::mutate(number_brands = dplyr::if_else(
+    number_brands < 10, as.character(as.integer(number_brands)), "10+"
+  )) |>
+  dplyr::group_by(number_brands) |>
+  dplyr::tally() |>
+  dplyr::collect() |>
+  dplyr::mutate(
+    number_brands = factor(
+      number_brands, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    ),
+    percentage = sprintf("%.1f", 100 * n / sum(n)),
+    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+  )
+ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_brands, y = n, fill = number_brands, label = percentage)) +
+  ggplot2::geom_col() +
+  ggplot2::theme(legend.position = "top") +
+  ggplot2::geom_text()
+```
+
+Explain example of COVID-19 vaccination with brands.
+
+number of dose forms
+
+circular bar plot
+
+dose form is only available with RxNorm
+
+There is a minority of concepts (6926, 0.3%) has associated 2 dose forms, most of this records come from an overlap between Injectable Solution, Ijection and Intravenous solution, but this is a minority and in general records will only have one dose (or none) associated.
+
+```{r}
+x <- drugs |>
+  dplyr::inner_join(
+     cdm$concept_relationship |> 
+       dplyr::filter(relationship_id == "RxNorm has dose form") |> 
+       dplyr::rename("concept_id" = "concept_id_1"),
+    by = "concept_id"
+  ) |>
+  dplyr::group_by(concept_id) |>
+  dplyr::summarise(n = dplyr::n_distinct(concept_id_2)) |>
+  dplyr::right_join(drugs, by = "concept_id") |>
+  dplyr::mutate(number_dose_form = dplyr::coalesce(n, 0)) |>
+  dplyr::mutate(number_dose_form = dplyr::if_else(
+    number_dose_form < 10, as.character(as.integer(number_dose_form)), "10+"
+  )) |>
+  dplyr::group_by(number_dose_form) |>
+  dplyr::tally() |>
+  dplyr::collect() |>
+  dplyr::mutate(
+    number_dose_form = factor(
+      number_dose_form, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    ),
+    percentage = sprintf("%.1f", 100 * n / sum(n)),
+    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+  )
+
+drugs |>
+  dplyr::inner_join(
+     cdm$concept_relationship |> 
+       dplyr::filter(relationship_id == "RxNorm has dose form") |> 
+       dplyr::rename("concept_id" = "concept_id_1"),
+    by = "concept_id"
+  ) |>
+  dplyr::group_by(concept_id) |>
+  dplyr::filter(dplyr::n_distinct(concept_id_2) == 2) |>
+  dplyr::select("concept_id", "concept_id_2") |>
+  PatientProfiles::addConceptName(column = "concept_id_2", nameStyle = "route") |>
+  dplyr::select(!"concept_id_2") |>
+  dplyr::collect() |>
+  dplyr::arrange(concept_id, route) |>
+  dplyr::mutate(id = paste0("route_", dplyr::row_number())) |>
+  tidyr::pivot_wider(names_from = "id", values_from = "route") |>
+  dplyr::mutate(route = paste0(route_1, "; ", route_2)) |>
+  dplyr::group_by(route) |>
+  dplyr::tally()
+
+ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_dose_form, y = n, fill = number_dose_form, label = percentage)) +
+  ggplot2::geom_col() +
+  ggplot2::theme(legend.position = "top") +
+  ggplot2::geom_text()
+```
+
+number of route categories
+
+number ATC classes 
