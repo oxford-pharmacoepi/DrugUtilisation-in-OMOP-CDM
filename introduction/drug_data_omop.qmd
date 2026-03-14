@@ -113,14 +113,17 @@ dose form is only available with RxNorm
 
 There is a minority of concepts (6926, 0.3%) has associated 2 dose forms, most of this records come from an overlap between Injectable Solution, Ijection and Intravenous solution, but this is a minority and in general records will only have one dose (or none) associated.
 
+In Figure XX we can see the distribution of dose forms
+
 ```{r}
 x <- drugs |>
-  dplyr::inner_join(
+  dplyr::left_join(
      cdm$concept_relationship |> 
        dplyr::filter(relationship_id == "RxNorm has dose form") |> 
        dplyr::rename("concept_id" = "concept_id_1"),
     by = "concept_id"
   ) |>
+  PatientProfiles::addConceptName(column = "concept_id_2", nameStyle = "") |>
   dplyr::group_by(concept_id) |>
   dplyr::summarise(n = dplyr::n_distinct(concept_id_2)) |>
   dplyr::right_join(drugs, by = "concept_id") |>
