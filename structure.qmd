@@ -18,12 +18,15 @@
 -   Drug Users identification
     -   Create drug codelists
         -   Stratify and subset codelists
+        -   Drug combination codelists
         -   Import and export codelists
     -   Diagnostics
         -   PhenotypeR
         -   Dose calculation
     -   Identify users
+        -   Drug users cohort
         -   Identify new users
+        -   Concatenation of prescriptions
 -   Population level DrugUtilisation
     -   Denominator cohort
         -   General Population
