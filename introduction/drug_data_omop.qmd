@@ -1,11 +1,134 @@
 # Drug data in the OMOP CDM
 
-The OMOP CDM is a domain organised Common Data Model. Clinical data (events) are recorded into different Clinical tables depending on its domain: for example, drugs records (Drug domain) are recorded in the Drug Exposure table or condition records (Condition domain). In the following table you can see 
+In this chapter the organisation
+
+## The Drug exposure table
+
+The OMOP CDM is a domain organised Common Data Model. Clinical data (events) are recorded into different Clinical tables depending on its domain: for example, drugs records (Drug domain) are recorded in the Drug Exposure table or condition records (Condition domain).
+
+The *Drug Exposure* table has `23` columns, each row meaning a different record. Above a brief description of the different fields.
+
+- **`drug_exposure_id`** Unique surrogate key for each drug record.
+- **person_id** Identifier for the patient for whom the drug exposure is recorded (foreign key to the *person* table).
+- **`drug_concept_id`** Identifier for the drug code, it must be a standard concept in the Drug domain. When a source drug record cannot be mapped, set this field to `0`. The concept with the most detailed content is preferred. Concept classes are considered in the following order of precedence: *Marketed Product* > *Branded Pack / Clinical Pack* > *Branded Drug / Clinical Drug* > *Branded Drug Component / Clinical Drug Component* > *Branded Drug Form / Clinical Drug Form* > *Ingredient*.
+- **`drug_exposure_start_date`** The date the drug exposure began. Valid entries include the date a prescription was written, the date it was dispensed, or the date a drug administration was recorded. It can not be missing.
+- **`drug_exposure_start_datetime`** Optional datetime precision for the start. This field is not used for the analyses described in this book.
+- **`drug_exposure_end_date`** The date the drug exposure end. This date must be determined at the ETL stage. In the analyses described in this book if missing it is assumed to be the same than the start date.
+- **`drug_exposure_end_datetime`** Optional datetime precision for the end. This field is not used for the analyses described in this book.
+- **`verbatim_end_date`** The end date exactly as it appears in the source data (e.g. a discontinuation date), without any imputation. This field is not used for the analyses described in this book.
+- **`drug_type_concept_id`** Describes the provenance of the exposure record — for example, whether it is a prescription written, a prescription dispensed, a drug administered by a provider, or a patient-reported exposure. Use this field to filter to specific exposure types in analyses. See [accepted Type Concepts](https://athena.ohdsi.org/search-terms/terms?domain=Type+Concept&standardConcept=Standard) and the [OHDSI vocabulary wiki](https://github.com/OHDSI/Vocabulary-v5.0/wiki/Vocab.-TYPE_CONCEPT) for descriptions.
+- **`stop_reason`** The reason a person stopped a medication as it appears in the source (e.g. "regimen completed", "changed", "removed"). Often not populated. **This field will be retired in CDM v6.0.**
+- **`refills`** Intended refills at the time a prescription was written. Only relevant for records sourced from written prescriptions.
+- **`quantity`** The amount of drug dispensed or administered.
+- **`days_supply`** The number of days of supply as recorded in the source prescription or dispensing record. This reflects the *prescribed* supply and may differ from the actual exposure duration. Leave empty if not verbatim in the source — do not calculate from other fields. Negative values are invalid and should lead to the record being dropped or investigated. Values exceeding 365 days warrant review.
+- **`sig`** The verbatim prescription instructions as written by the provider (Latin abbreviations or plain text as found in the source).
+- **`route_concept_id`** Standard concept representing the route of administration (e.g. oral, intravenous, topical). See [accepted Route concepts](https://athena.ohdsi.org/search-terms/terms?domain=Route&standardConcept=Standard).
+- **`lot_number`**
+The manufacturer's lot or batch number for the drug product, if available. Particularly relevant for vaccines and biologics.
+- **`provider_id`** The provider associated with the drug record (e.g. the prescriber or the administering clinician). The ETL must determine which provider to record when multiple providers are involved (e.g. ordering vs. administering physician).
+- **`visit_occurrence_id`** Links the exposure to the visit during which the drug was prescribed, administered, or dispensed. Drug exposures must be explicitly associated with a visit in the source data to populate this field.
+- **`visit_detail_id`** Links to a more granular visit record in `VISIT_DETAIL`, if available. For example, if a drug was administered during an ICU stay within a broader inpatient visit, `visit_occurrence_id` would reference the full hospital stay and `visit_detail_id` would reference the ICU stay.
+- **`drug_source_value`** The verbatim code or text from the source system (e.g. an NDC, Gemscript, or BNF code). Retained for traceability; not intended for primary analysis.
+- **`drug_source_concept_id`** The concept ID representing the source value, if the source uses an OMOP-supported vocabulary (e.g. RxNorm, dm+d). This field is **discouraged for analysis** — prefer `drug_concept_id` for network studies.
+- **`route_source_value`** The verbatim route value from the source data. This is mapped to `route_concept_id` for standardisation; retained here for reference.
+- **`dose_unit_source_value`** The verbatim unit of dose from the source data. **This is a legacy field scheduled for deprecation in a future CDM version.** It is included for backward compatibility but is not recommended for analysis.
+
+As a summary the most important field that are used in the subsequent analysis are: **person_id**, **drug_concept_id**, **drug_exposure_start_date**, **drug_exposure_end_date** and **quantity** with: **drug_type_concept_id** and **drug_source_concept_id** that might be used at the cohort creation stage.
+
+## Standard and Source fields
+
+Every clinical entity in OMOP CDM is captured at two levels: the standard concept (`drug_concept_id` in the case of drug records) and the original source representation (`drug_source_value` and `drug_source_concept_id` in the case of drug records). Analyses (in general) will always rely on standard concepts so definitions are generalisable across different OMOP CDM instances.
+
+To show some numbers we will explore the `27th August 2025` vocabulary version using the [**delphi-100k**](https://cdmconnectordata.blob.core.windows.net/cdmconnector-example-data/delphi-100k_5.4.zip) dataset.
+
+```{r}
+library(omock)
+library(duckdb)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
+
+#cdm <- mockCdmFromDataset(datasetName = "delphi-100k_5.4", source = "duckdb")
+cdm <- mockCdmFromDataset(datasetName = "GiBleed", source = "duckdb")
+```
+```{r, echo = FALSE}
+nDrugs <- cdm$concept |>
+  filter(domain_id == "Drug") |>
+  tally() |>
+  pull()
+nTotal <- cdm$concept |>
+  tally() |>
+  pull()
+nSDrugs <- cdm$concept |>
+  filter(standard_concept == "S", domain_id == "Drug") |>
+  tally() |>
+  pull()
+nSTotal <- cdm$concept |>
+  filter(standard_concept == "S") |>
+  tally() |>
+  pull()
+```
+
+Drug concepts are `r sprintf("%.1f%%", 100 * nDrugs / nTotal)` of the total `r format(nTotal, big.mark = ",")` concepts. In particular when referring to only Standard concepts (`r format(nSTotal, big.mark = ",")`) the percentage is slightly reduced to `r sprintf("%.1f%%", 100 * nSDrugs / nSTotal)`. The Drug domain is the one containing more concepts in the OMOP CDM.
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+x <- cdm$concept |>
+  mutate(standard_concept = case_when(
+    standard_concept == "S" ~ "Standard",
+    standard_concept == "C" ~ "Classification",
+    .default = "Non standard"
+  )) |>
+  group_by(standard_concept, domain_id) |>
+  tally() |>
+  collect() |>
+  mutate(domain_id = if_else(n < 5000, "Other", domain_id)) |>
+  group_by(standard_concept, domain_id) |>
+  summarise(n = sum(n), .groups = "drop")
+xOverall <- x |>
+  group_by(domain_id) |>
+  summarise(n = sum(n), .groups = "drop") |>
+  mutate(standard_concept = "Overall")
+sc <- c("Overall", "Standard", "Classification", "Non standard")
+domains <- sort(unique(x$domain_id))
+domains <- c(domains[domains != "Other"], "Other")
+x <- union_all(x, xOverall) |>
+  mutate(
+    standard_concept = factor(standard_concept, sc),
+    domain = factor(domain_id, domains)
+  )
+
+ggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = domain)) +
+  geom_col() +
+  labs(x = "", y = "Number of concepts", fill = "Domain")
+```
+
+
+
+
+**Standard vs. source fields.** 
+
+## Concept granularly
+
+**Concept granularity.** Drug concepts exist at multiple levels of granularity in the RxNorm/RxNorm Extension hierarchy, from ingredient level up to marketed product. The ETL should map to the most detailed concept available from the source data.
+
+## Ingredients
+
+## Daily dose
+
+## Combination products
+
+**Combination products.** A single source code representing a combination product may map to multiple standard concept IDs (one per ingredient). In such cases, multiple `DRUG_EXPOSURE` rows should be created, one per standard concept.
+
+## Drug eras
+
+**Drug Eras.** The `DRUG_EXPOSURE` table stores individual exposure events. The derived `DRUG_ERA` table (built post-ETL) collapses these into continuous exposure periods per ingredient, accounting for permissible gaps, and is often more suitable for epidemiological analyses.
+
 
 ```{r}
 cdm <- omock::mockCdmFromDataset(datasetName = "synthea-covid19-10k", source = "duckdb")
 ingredients <- cdm$concept |>
-  dplyr::filter(concept_class_id == "Ingredient")
+  dplyr::filter(concept_class_id == "Ingredient", standard_concept == "S")
 drugs <- cdm$concept |>
   dplyr::filter(domain_id == "Drug", standard_concept == "S")
 ```

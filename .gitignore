@@ -51,3 +51,8 @@ rsconnect/
 _site/
 
 /.quarto/
+
+*.html
+
+# Rendered document support files
+*_files/
