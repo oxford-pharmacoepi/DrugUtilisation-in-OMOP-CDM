@@ -31,16 +31,10 @@ jobs:
       - name: Install LaTeX (TinyTeX)
         uses: r-lib/actions/setup-tinytex@v2
 
-      - name: Create directiy to download data
-        run: |
-          mkdir -p my_data
-          echo "OMOP_DATA_FOLDER=$(pwd)/my_data" >> $GITHUB_ENV
-
-      - name: Download synthetic datasets
-        run: |
-          options(timeout = 600)
-          omock::downloadMockDataset(datasetName = "empty_cdm")
+      - name: Download mock datasets
         shell: Rscript {0}
+        run: |
+          source('Databases/createDatabases.R')
 
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2

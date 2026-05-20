@@ -47,9 +47,17 @@ library(duckdb)
 library(dplyr, warn.conflicts = FALSE)
 library(ggplot2)
 
-#cdm <- mockCdmFromDataset(datasetName = "delphi-100k_5.4", source = "duckdb")
-cdm <- mockCdmFromDataset(datasetName = "GiBleed", source = "duckdb")
+cdm <- mockCdmFromDataset(datasetName = "delphi-100k_5.4", source = "duckdb")
 ```
+```{r, echo=FALSE}
+con <- duckdb::dbConnect(drv = duckdb::duckdb(dbdir = here::here("Databases", "delphi.duckdb")))
+DBI::dbExecute(con, "SET memory_limit = '2GB'")
+cdm <- CDMConnector::cdmFromCon(con = con, cdmSchema = "main", writeSchema = "results")
+```
+```{r}
+cdm
+```
+
 ```{r, echo = FALSE}
 nDrugs <- cdm$concept |>
   filter(domain_id == "Drug") |>
@@ -103,16 +111,184 @@ ggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = domain)) +
   labs(x = "", y = "Number of concepts", fill = "Domain")
 ```
 
-
-
-
 **Standard vs. source fields.** 
+
+## Vocabularies
+
+```{r}
+#| code-fold: true
+#| code-summary: "Show code"
+x <- cdm$concept |>
+  filter(domain_id == "Drug") |>
+  mutate(standard_concept = case_when(
+    standard_concept == "S" ~ "Standard",
+    standard_concept == "C" ~ "Classification",
+    .default = "Non standard"
+  )) |>
+  group_by(standard_concept, vocabulary_id) |>
+  tally() |>
+  collect() |>
+  mutate(vocabulary_id = if_else(n < 5000, "Other", vocabulary_id)) |>
+  group_by(standard_concept, vocabulary_id) |>
+  summarise(n = sum(n), .groups = "drop")
+xOverall <- x |>
+  group_by(vocabulary_id) |>
+  summarise(n = sum(n), .groups = "drop") |>
+  mutate(standard_concept = "Overall")
+sc <- c("Overall", "Standard", "Classification", "Non standard")
+vocabs <- sort(unique(x$vocabulary_id))
+vocabs <- c(vocabs[vocabs != "Other"], "Other")
+x <- union_all(x, xOverall) |>
+  mutate(
+    standard_concept = factor(standard_concept, sc),
+    vocabulary = factor(vocabulary_id, vocabs)
+  )
+
+ggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = vocabulary)) +
+  geom_col() +
+  labs(x = "", y = "Number of concepts", fill = "Vocabulary")
+```
 
 ## Concept granularly
 
 **Concept granularity.** Drug concepts exist at multiple levels of granularity in the RxNorm/RxNorm Extension hierarchy, from ingredient level up to marketed product. The ETL should map to the most detailed concept available from the source data.
 
+```{r}
+x <- cdm$concept |>
+  filter(domain_id == "Drug", standard_concept == "S") |>
+  group_by(concept_class_id) |>
+  tally() |>
+  collect() |>
+  mutate(concept_class_id = if_else(n < 5000, "Other", concept_class_id)) |>
+  group_by(concept_class_id) |>
+  summarise(n = sum(n), .groups = "drop") |>
+  mutate(n = 100 * n / sum(n))
+ggplot(data = x, mapping = aes(x = concept_class_id, y = n, fill = concept_class_id)) +
+  geom_col() +
+  labs(y = "Percentage (%)", x = "") +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)
+  )
+```
+
+## Brand
+
+From the concept id we can deduce the brand of the product
+
+```{r}
+x <- cdm$concept |>
+  filter(domain_id == "Drug", standard_concept == "S") |>
+  inner_join(
+     cdm$concept_relationship |> 
+       filter(relationship_id == "Has brand name") |> 
+       rename("concept_id" = "concept_id_1"),
+    by = "concept_id"
+  ) |>
+  group_by(concept_id) |>
+  summarise(n = n_distinct(concept_id_2)) |>
+  right_join(
+    cdm$concept |>
+      filter(domain_id == "Drug", standard_concept == "S"),
+    by = "concept_id"
+  ) |>
+  mutate(number_brands = coalesce(n, 0)) |>
+  mutate(number_brands = if_else(
+    number_brands < 10, as.character(as.integer(number_brands)), "10+"
+  )) |>
+  group_by(number_brands, concept_class_id) |>
+  tally() |>
+  collect() |>
+  mutate(
+    number_brands = factor(
+      number_brands, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    ),
+    percentage = sprintf("%.1f", 100 * n / sum(n)),
+    percentage = if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+  )
+ggplot(data = x, mapping = aes(x = concept_class_id, y = n, fill = number_brands, label = percentage)) +
+  geom_col() +
+  theme(legend.position = "top") +
+  geom_text()
+```
+
+For example we can quickly search for the different COVID-19 vaccines and see which are the different brands and number of concepts associated.
+
+
+```{r}
+x <- cdm$concept_ancestor |>
+  filter(ancestor_concept_id == 954935) |>
+  select("vaccine_concept_id" = "descendant_concept_id") |>
+  inner_join(
+    cdm$concept_relationship |> 
+       filter(relationship_id == "Has brand name") |> 
+       select(
+         "vaccine_concept_id" = "concept_id_1",
+         "brand_concept_id" = "concept_id_2"
+       ),
+    by = "vaccine_concept_id"
+  ) |>
+  inner_join(
+    cdm$concept |>
+      filter(domain_id == "Drug", standard_concept == "S") |>
+      select("vaccine_concept_id" = "concept_id"),
+    by = "vaccine_concept_id"
+  ) |>
+  inner_join(
+    cdm$concept |>
+      select("brand_concept_id" = "concept_id", "brand" = "concept_name"),
+    by = "brand_concept_id"
+  ) |>
+  group_by(brand) |>
+  tally() |>
+  collect()
+```
+
+
 ## Ingredients
+
+There are `r cdm$concept |> filter(concept_class_id == "Ingredient", standard_concept == "S") |> tally() |> pull() |> format(big.mark = ",")` standard ingredients in this version of vocabularies.
+
+```{r}
+x <- cdm$concept |> 
+  filter(domain_id == "Drug", standard_concept == "S") |>
+  inner_join(
+    cdm$concept_ancestor |>
+      inner_join(
+        cdm$concept |> 
+          filter(concept_class_id == "Ingredient", standard_concept == "S") |>
+          select("ancestor_concept_id" = "concept_id"),
+        by = "ancestor_concept_id"
+      ) |>
+      select("concept_id" = "descendant_concept_id", "ancestor_concept_id"),
+    by = "concept_id"
+  ) |>
+  group_by(concept_id) |>
+  summarise(n = n_distinct(ancestor_concept_id)) |>
+  right_join(
+    cdm$concept |> 
+      filter(domain_id == "Drug", standard_concept == "S"),
+    by = "concept_id"
+  ) |>
+  mutate(number_ingredients = coalesce(n, 0)) |>
+  mutate(number_ingredients = if_else(
+    number_ingredients < 10, as.character(as.integer(number_ingredients)), "10+"
+  )) |>
+  group_by(number_ingredients) |>
+  tally() |>
+  collect() |>
+  mutate(
+    number_ingredients = factor(
+      number_ingredients, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
+    ),
+    percentage = sprintf("%.1f", 100 * n / sum(n)),
+    percentage = if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+  )
+ggplot(data = x, mapping = aes(x = number_ingredients, y = n, fill = number_ingredients, label = percentage)) +
+  geom_col() +
+  theme(legend.position = "top") +
+  geom_text()
+```
 
 ## Daily dose
 
@@ -120,117 +296,7 @@ ggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = domain)) +
 
 **Combination products.** A single source code representing a combination product may map to multiple standard concept IDs (one per ingredient). In such cases, multiple `DRUG_EXPOSURE` rows should be created, one per standard concept.
 
-## Drug eras
-
-**Drug Eras.** The `DRUG_EXPOSURE` table stores individual exposure events. The derived `DRUG_ERA` table (built post-ETL) collapses these into continuous exposure periods per ingredient, accounting for permissible gaps, and is often more suitable for epidemiological analyses.
-
-
-```{r}
-cdm <- omock::mockCdmFromDataset(datasetName = "synthea-covid19-10k", source = "duckdb")
-ingredients <- cdm$concept |>
-  dplyr::filter(concept_class_id == "Ingredient", standard_concept == "S")
-drugs <- cdm$concept |>
-  dplyr::filter(domain_id == "Drug", standard_concept == "S")
-```
-
-number of records per vocabulary
-
-```{r}
-x <- drugs |>
-  dplyr::group_by(vocabulary_id) |>
-  dplyr::tally() |>
-  dplyr::collect()
-ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = vocabulary_id, y = n, fill = vocabulary_id)) +
-  ggplot2::geom_col() +
-  ggplot2::theme(legend.position = "top")
-```
-
-class concept id
-
-```{r}
-x <- drugs |>
-  dplyr::group_by(concept_class_id) |>
-  dplyr::tally() |>
-  dplyr::collect()
-ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = concept_class_id, y = n, fill = concept_class_id)) +
-  ggplot2::geom_col() +
-  ggplot2::theme(legend.position = "top")
-```
-
-number of ingredients per concept
-
-```{r}
-x <- drugs |>
-  dplyr::inner_join(
-    cdm$concept_ancestor |>
-      dplyr::inner_join(
-        ingredients |>
-          dplyr::select("ancestor_concept_id" = "concept_id"),
-        by = "ancestor_concept_id"
-      ) |>
-      dplyr::select("concept_id" = "descendant_concept_id", "ancestor_concept_id"),
-    by = "concept_id"
-  ) |>
-  dplyr::group_by(concept_id) |>
-  dplyr::summarise(n = dplyr::n_distinct(ancestor_concept_id)) |>
-  dplyr::right_join(drugs, by = "concept_id") |>
-  dplyr::mutate(number_ingredients = dplyr::coalesce(n, 0)) |>
-  dplyr::mutate(number_ingredients = dplyr::if_else(
-    number_ingredients < 10, as.character(as.integer(number_ingredients)), "10+"
-  )) |>
-  dplyr::group_by(number_ingredients) |>
-  dplyr::tally() |>
-  dplyr::collect() |>
-  dplyr::mutate(
-    number_ingredients = factor(
-      number_ingredients, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
-    ),
-    percentage = sprintf("%.1f", 100 * n / sum(n)),
-    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
-  )
-ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_ingredients, y = n, fill = number_ingredients, label = percentage)) +
-  ggplot2::geom_col() +
-  ggplot2::theme(legend.position = "top") +
-  ggplot2::geom_text()
-```
-
-number of brands per concept
-```{r}
-x <- drugs |>
-  dplyr::inner_join(
-     cdm$concept_relationship |> 
-       dplyr::filter(relationship_id == "Has brand name") |> 
-       dplyr::rename("concept_id" = "concept_id_1"),
-    by = "concept_id"
-  ) |>
-  dplyr::group_by(concept_id) |>
-  dplyr::summarise(n = dplyr::n_distinct(concept_id_2)) |>
-  dplyr::right_join(drugs, by = "concept_id") |>
-  dplyr::mutate(number_brands = dplyr::coalesce(n, 0)) |>
-  dplyr::mutate(number_brands = dplyr::if_else(
-    number_brands < 10, as.character(as.integer(number_brands)), "10+"
-  )) |>
-  dplyr::group_by(number_brands) |>
-  dplyr::tally() |>
-  dplyr::collect() |>
-  dplyr::mutate(
-    number_brands = factor(
-      number_brands, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
-    ),
-    percentage = sprintf("%.1f", 100 * n / sum(n)),
-    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
-  )
-ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_brands, y = n, fill = number_brands, label = percentage)) +
-  ggplot2::geom_col() +
-  ggplot2::theme(legend.position = "top") +
-  ggplot2::geom_text()
-```
-
-Explain example of COVID-19 vaccination with brands.
-
-number of dose forms
-
-circular bar plot
+## Routes and drug forms
 
 dose form is only available with RxNorm
 
@@ -240,57 +306,67 @@ In Figure XX we can see the distribution of dose forms
 
 ```{r}
 x <- drugs |>
-  dplyr::left_join(
+  left_join(
      cdm$concept_relationship |> 
-       dplyr::filter(relationship_id == "RxNorm has dose form") |> 
-       dplyr::rename("concept_id" = "concept_id_1"),
+       filter(relationship_id == "RxNorm has dose form") |> 
+       rename("concept_id" = "concept_id_1"),
     by = "concept_id"
   ) |>
   PatientProfiles::addConceptName(column = "concept_id_2", nameStyle = "") |>
-  dplyr::group_by(concept_id) |>
-  dplyr::summarise(n = dplyr::n_distinct(concept_id_2)) |>
-  dplyr::right_join(drugs, by = "concept_id") |>
-  dplyr::mutate(number_dose_form = dplyr::coalesce(n, 0)) |>
-  dplyr::mutate(number_dose_form = dplyr::if_else(
+  group_by(concept_id) |>
+  summarise(n = n_distinct(concept_id_2)) |>
+  right_join(drugs, by = "concept_id") |>
+  mutate(number_dose_form = coalesce(n, 0)) |>
+  mutate(number_dose_form = if_else(
     number_dose_form < 10, as.character(as.integer(number_dose_form)), "10+"
   )) |>
-  dplyr::group_by(number_dose_form) |>
-  dplyr::tally() |>
-  dplyr::collect() |>
-  dplyr::mutate(
+  group_by(number_dose_form) |>
+  tally() |>
+  collect() |>
+  mutate(
     number_dose_form = factor(
       number_dose_form, c("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10+")
     ),
     percentage = sprintf("%.1f", 100 * n / sum(n)),
-    percentage = dplyr::if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
+    percentage = if_else(percentage == "0.0", "<0.1%", paste0(percentage, "%"))
   )
 
 drugs |>
-  dplyr::inner_join(
+  inner_join(
      cdm$concept_relationship |> 
-       dplyr::filter(relationship_id == "RxNorm has dose form") |> 
-       dplyr::rename("concept_id" = "concept_id_1"),
+       filter(relationship_id == "RxNorm has dose form") |> 
+       rename("concept_id" = "concept_id_1"),
     by = "concept_id"
   ) |>
-  dplyr::group_by(concept_id) |>
-  dplyr::filter(dplyr::n_distinct(concept_id_2) == 2) |>
-  dplyr::select("concept_id", "concept_id_2") |>
+  group_by(concept_id) |>
+  filter(n_distinct(concept_id_2) == 2) |>
+  select("concept_id", "concept_id_2") |>
   PatientProfiles::addConceptName(column = "concept_id_2", nameStyle = "route") |>
-  dplyr::select(!"concept_id_2") |>
-  dplyr::collect() |>
-  dplyr::arrange(concept_id, route) |>
-  dplyr::mutate(id = paste0("route_", dplyr::row_number())) |>
+  select(!"concept_id_2") |>
+  collect() |>
+  arrange(concept_id, route) |>
+  mutate(id = paste0("route_", row_number())) |>
   tidyr::pivot_wider(names_from = "id", values_from = "route") |>
-  dplyr::mutate(route = paste0(route_1, "; ", route_2)) |>
-  dplyr::group_by(route) |>
-  dplyr::tally()
+  mutate(route = paste0(route_1, "; ", route_2)) |>
+  group_by(route) |>
+  tally()
 
-ggplot2::ggplot(data = x, mapping = ggplot2::aes(x = number_dose_form, y = n, fill = number_dose_form, label = percentage)) +
-  ggplot2::geom_col() +
-  ggplot2::theme(legend.position = "top") +
-  ggplot2::geom_text()
+ggplot(data = x, mapping = aes(x = number_dose_form, y = n, fill = number_dose_form, label = percentage)) +
+  geom_col() +
+  theme(legend.position = "top") +
+  geom_text()
 ```
 
 number of route categories
 
-number ATC classes 
+## Drug eras
+
+**Drug Eras.** The `DRUG_EXPOSURE` table stores individual exposure events. The derived `DRUG_ERA` table (built post-ETL) collapses these into continuous exposure periods per ingredient, accounting for permissible gaps, and is often more suitable for some summary statistics.
+
+You can build the *Drug Era* using the [OmopConstructor](https://ohdsi.github.io/OmopConstructor/) R package.
+
+```{r, eval=FALSE}
+library(OmopConstructor)
+
+cdm <- buildDrugEra(cdm = cdm)
+```
