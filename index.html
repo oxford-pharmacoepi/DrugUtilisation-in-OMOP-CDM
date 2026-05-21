@@ -2,15 +2,18 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.24">
+<meta name="generator" content="quarto-1.9.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Martí Català">
-<meta name="dcterms.date" content="2025-09-24">
+<meta name="dcterms.date" content="2026-05-21">
 
 <title>DrugUtilisation Studies in the OMOP Common Data Model</title>
 <style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -35,15 +38,14 @@ ul.task-list li input[type="checkbox"] {
 <link href="./introduction.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dc55a5b9e770e841cd82e46aadbfb9b0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-d58359eb3ecc31d3bec1ed479c2cbb3a.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-87b7f55de2e0c9887283481eb31a794c.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "sidebar",
   "copy-button": false,
@@ -97,9 +99,7 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      </a>
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
       <a href="./">DrugUtilisation Studies in the OMOP Common Data Model</a> 
     </div>
@@ -173,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 24, 2025</p>
+      <p class="date">May 21, 2026</p>
     </div>
   </div>
   
@@ -192,7 +192,7 @@ ul.task-list li input[type="checkbox"] {
 <p>This book is part of the collection of <strong>Tidy R programming in OMOP</strong> see accompanying books:</p>
 <ol type="1">
 <li><a href="https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/">Tidy R programming with the OMOP common data model</a></li>
-<li><a href="https://oxford-pharmacoepi.github.io/DeveloperBook/">The omopverse developer book</a></li>
+<li><a href="https://oxford-pharmacoepi.github.io/DeveloperBook/">Tidy R packages with the OMOP common data model</a></li>
 </ol>
 <p>We’ve written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see <a href="https://design.tidyverse.org/unifying.html" class="uri">https://design.tidyverse.org/unifying.html</a> for more details on these principles).</p>
 <p>New to R? We recommend you compliment the book with <a href="https://r4ds.had.co.nz/">R for data science</a></p>
@@ -223,23 +223,23 @@ ul.task-list li input[type="checkbox"] {
 <pre><code>Finding R package dependencies ... Done!</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="igkndubcse" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#igkndubcse table {
+<div id="zyjtiwyghp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zyjtiwyghp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#igkndubcse thead, #igkndubcse tbody, #igkndubcse tfoot, #igkndubcse tr, #igkndubcse td, #igkndubcse th {
+#zyjtiwyghp thead, #zyjtiwyghp tbody, #zyjtiwyghp tfoot, #zyjtiwyghp tr, #zyjtiwyghp td, #zyjtiwyghp th {
   border-style: none;
 }
 
-#igkndubcse p {
+#zyjtiwyghp p {
   margin: 0;
   padding: 0;
 }
 
-#igkndubcse .gt_table {
+#zyjtiwyghp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -265,12 +265,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#igkndubcse .gt_caption {
+#zyjtiwyghp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#igkndubcse .gt_title {
+#zyjtiwyghp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -282,7 +282,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#igkndubcse .gt_subtitle {
+#zyjtiwyghp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -294,7 +294,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#igkndubcse .gt_heading {
+#zyjtiwyghp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -306,13 +306,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#igkndubcse .gt_bottom_border {
+#zyjtiwyghp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#igkndubcse .gt_col_headings {
+#zyjtiwyghp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -327,7 +327,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#igkndubcse .gt_col_heading {
+#zyjtiwyghp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -347,7 +347,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#igkndubcse .gt_column_spanner_outer {
+#zyjtiwyghp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -359,15 +359,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#igkndubcse .gt_column_spanner_outer:first-child {
+#zyjtiwyghp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#igkndubcse .gt_column_spanner_outer:last-child {
+#zyjtiwyghp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#igkndubcse .gt_column_spanner {
+#zyjtiwyghp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -379,11 +379,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#igkndubcse .gt_spanner_row {
+#zyjtiwyghp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#igkndubcse .gt_group_heading {
+#zyjtiwyghp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -409,7 +409,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#igkndubcse .gt_empty_group_heading {
+#zyjtiwyghp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -424,15 +424,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#igkndubcse .gt_from_md > :first-child {
+#zyjtiwyghp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#igkndubcse .gt_from_md > :last-child {
+#zyjtiwyghp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#igkndubcse .gt_row {
+#zyjtiwyghp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -451,7 +451,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#igkndubcse .gt_stub {
+#zyjtiwyghp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -464,7 +464,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#igkndubcse .gt_stub_row_group {
+#zyjtiwyghp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -478,15 +478,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#igkndubcse .gt_row_group_first td {
+#zyjtiwyghp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#igkndubcse .gt_row_group_first th {
+#zyjtiwyghp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#igkndubcse .gt_summary_row {
+#zyjtiwyghp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -496,16 +496,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#igkndubcse .gt_first_summary_row {
+#zyjtiwyghp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#igkndubcse .gt_first_summary_row.thick {
+#zyjtiwyghp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#igkndubcse .gt_last_summary_row {
+#zyjtiwyghp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -515,7 +515,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#igkndubcse .gt_grand_summary_row {
+#zyjtiwyghp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -525,7 +525,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#igkndubcse .gt_first_grand_summary_row {
+#zyjtiwyghp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -535,7 +535,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#igkndubcse .gt_last_grand_summary_row_top {
+#zyjtiwyghp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -545,11 +545,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#igkndubcse .gt_striped {
+#zyjtiwyghp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#igkndubcse .gt_table_body {
+#zyjtiwyghp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -558,7 +558,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#igkndubcse .gt_footnotes {
+#zyjtiwyghp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -572,7 +572,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#igkndubcse .gt_footnote {
+#zyjtiwyghp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -581,7 +581,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#igkndubcse .gt_sourcenotes {
+#zyjtiwyghp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -595,7 +595,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#igkndubcse .gt_sourcenote {
+#zyjtiwyghp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -603,72 +603,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#igkndubcse .gt_left {
+#zyjtiwyghp .gt_left {
   text-align: left;
 }
 
-#igkndubcse .gt_center {
+#zyjtiwyghp .gt_center {
   text-align: center;
 }
 
-#igkndubcse .gt_right {
+#zyjtiwyghp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#igkndubcse .gt_font_normal {
+#zyjtiwyghp .gt_font_normal {
   font-weight: normal;
 }
 
-#igkndubcse .gt_font_bold {
+#zyjtiwyghp .gt_font_bold {
   font-weight: bold;
 }
 
-#igkndubcse .gt_font_italic {
+#zyjtiwyghp .gt_font_italic {
   font-style: italic;
 }
 
-#igkndubcse .gt_super {
+#zyjtiwyghp .gt_super {
   font-size: 65%;
 }
 
-#igkndubcse .gt_footnote_marks {
+#zyjtiwyghp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#igkndubcse .gt_asterisk {
+#zyjtiwyghp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#igkndubcse .gt_indent_1 {
+#zyjtiwyghp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#igkndubcse .gt_indent_2 {
+#zyjtiwyghp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#igkndubcse .gt_indent_3 {
+#zyjtiwyghp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#igkndubcse .gt_indent_4 {
+#zyjtiwyghp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#igkndubcse .gt_indent_5 {
+#zyjtiwyghp .gt_indent_5 {
   text-indent: 25px;
 }
 
-#igkndubcse .katex-display {
+#zyjtiwyghp .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#igkndubcse div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#zyjtiwyghp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -684,12 +684,12 @@ ul.task-list li input[type="checkbox"] {
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="Package">DrugUtilisation</td>
-<td class="gt_row gt_right" headers="Version">1.0.4</td>
+<td class="gt_row gt_right" headers="Version">1.1.0</td>
 <td class="gt_row gt_left" headers="Link"><a href="https://darwin-eu.github.io/DrugUtilisation/">🔗</a></td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Package">omock</td>
-<td class="gt_row gt_right" headers="Version">0.5.0</td>
+<td class="gt_row gt_right" headers="Version">0.6.2</td>
 <td class="gt_row gt_left" headers="Link"><a href="https://ohdsi.github.io/omock/">🔗</a></td>
 </tr>
 </tbody>
