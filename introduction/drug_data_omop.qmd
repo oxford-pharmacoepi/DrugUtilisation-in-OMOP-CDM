@@ -41,15 +41,19 @@ Every clinical entity in OMOP CDM is captured at two levels: the standard concep
 
 To show some numbers we will explore the `27th August 2025` vocabulary version using the [**delphi-100k**](https://cdmconnectordata.blob.core.windows.net/cdmconnector-example-data/delphi-100k_5.4.zip) dataset.
 
-```{r}
+```{r, eval=FALSE}
 library(omock)
 library(duckdb)
-library(dplyr, warn.conflicts = FALSE)
+library(dplyr)
 library(ggplot2)
 
 cdm <- mockCdmFromDataset(datasetName = "delphi-100k_5.4", source = "duckdb")
 ```
 ```{r, echo=FALSE}
+library(omock)
+library(duckdb)
+library(dplyr, warn.conflicts = FALSE)
+library(ggplot2)
 con <- duckdb::dbConnect(drv = duckdb::duckdb(dbdir = here::here("Databases", "delphi.duckdb")))
 DBI::dbExecute(con, "SET memory_limit = '2GB'")
 cdm <- CDMConnector::cdmFromCon(con = con, cdmSchema = "main", writeSchema = "results")

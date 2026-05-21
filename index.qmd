@@ -5,7 +5,7 @@
 This book is part of the collection of **Tidy R programming in OMOP** see accompanying books:
 
 (1) [Tidy R programming with the OMOP common data model](https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/)
-(2) [Tidy R packages with the OMOP common data model](https://oxford-pharmacoepi.github.io/DeveloperBook/)
+(2) [Tidy R packages with the OMOP common data model](https://oxford-pharmacoepi.github.io/Tidy-R-packages-with-OMOP/)
 (3) [Drug Utilisation Studies in the OMOP Common Data Model](https://oxford-pharmacoepi.github.io/DrugUtilisation-in-OMOP-CDM/)
 
 We've written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see <https://design.tidyverse.org/unifying.html> for more details on these principles).

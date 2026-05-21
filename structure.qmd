@@ -1,19 +1,9 @@
 # Proposed structure for the book
 
 -   Preface
-    -   Is this book for me
-        -   OMOP
-        -   R
-        -   Tidyverse
-        -   Tidy R in OMOP CDM collection
-        -   Set up your environment
-    -   About the authors
 -   Introduction
     -   Drug Utilisation studies
     -   Drug data in the OMOP CDM
-    -   Drug vocabularies
-    -   Dose form and routes
-    -   Standard vs source
     -   Synthetic data used
 -   Drug Users identification
     -   Create drug codelists
