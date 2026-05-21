@@ -308,7 +308,7 @@ There is a minority of concepts (6926, 0.3%) has associated 2 dose forms, most o
 
 In Figure XX we can see the distribution of dose forms
 
-```{r}
+```{r, eval=FALSE}
 x <- drugs |>
   left_join(
      cdm$concept_relationship |> 
