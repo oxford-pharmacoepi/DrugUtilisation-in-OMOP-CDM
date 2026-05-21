@@ -2,7 +2,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "",
     "text": "Preface",
     "crumbs": [
@@ -12,9 +12,9 @@
   {
     "objectID": "index.html#is-this-book-for-me",
     "href": "index.html#is-this-book-for-me",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "Is this book for me?",
-    "text": "Is this book for me?\nThis book is part of the collection of Tidy R programming in OMOP see accompanying books:\n\nTidy R programming with the OMOP common data model\nTidy R packages with the OMOP common data model\n\nWe’ve written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see https://design.tidyverse.org/unifying.html for more details on these principles).\nNew to R? We recommend you compliment the book with R for data science\nNew to databases? We recommend you take a look at some web tutorials on SQL, such as SQLBolt or SQLZoo\nNew to the OMOP CDM? We’d recommend you pare this book with The Book of OHDSI",
+    "text": "Is this book for me?\nThis book is part of the collection of Tidy R programming in OMOP see accompanying books:\n\nTidy R programming with the OMOP common data model\nTidy R packages with the OMOP common data model\nDrug Utilisation Studies in the OMOP Common Data Model\n\nWe’ve written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see https://design.tidyverse.org/unifying.html for more details on these principles).\nNew to R? We recommend you compliment the book with R for data science\nNew to databases? We recommend you take a look at some web tutorials on SQL, such as SQLBolt or SQLZoo\nNew to the OMOP CDM? We’d recommend you pare this book with The Book of OHDSI\nNew to the Tidy R in OMOP ecosystem? Probably you should start with the book Tidy R programming with the OMOP common data model before reading this one.",
     "crumbs": [
       "Preface"
     ]
@@ -22,7 +22,7 @@
   {
     "objectID": "index.html#how-is-the-book-organised",
     "href": "index.html#how-is-the-book-organised",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "How is the book organised?",
     "text": "How is the book organised?\nTO ADD",
     "crumbs": [
@@ -32,7 +32,7 @@
   {
     "objectID": "index.html#citation",
     "href": "index.html#citation",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "Citation",
     "text": "Citation\nTO ADD",
     "crumbs": [
@@ -42,7 +42,7 @@
   {
     "objectID": "index.html#license",
     "href": "index.html#license",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "License",
     "text": "License\n This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License.",
     "crumbs": [
@@ -52,7 +52,7 @@
   {
     "objectID": "index.html#code",
     "href": "index.html#code",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "Code",
     "text": "Code\nThe source code for the book can be found at this Github repository",
     "crumbs": [
@@ -62,7 +62,7 @@
   {
     "objectID": "index.html#packages-version",
     "href": "index.html#packages-version",
-    "title": "DrugUtilisation Studies in the OMOP Common Data Model",
+    "title": "Drug Utilisation Studies in the OMOP Common Data Model",
     "section": "Packages version",
     "text": "Packages version\nThis book is rendered using the following version of packages:\n\n\nFinding R package dependencies ... Done!\n\n\n\n\n\n\n\n\nPackage\nVersion\nLink\n\n\n\n\nDrugUtilisation\n1.1.0\n🔗\n\n\nomock\n0.6.2\n🔗\n\n\n\n\n\n\n\nNote we only included the packages called explicitly in the book.",
     "crumbs": [
@@ -70,33 +70,174 @@
     ]
   },
   {
-    "objectID": "introduction.html",
-    "href": "introduction.html",
-    "title": "1  Introduction",
+    "objectID": "structure.html",
+    "href": "structure.html",
+    "title": "1  Proposed structure for the book",
     "section": "",
-    "text": "1.1 DrugUtilisation Studies",
+    "text": "Preface\nIntroduction\n\nDrug Utilisation studies\nDrug data in the OMOP CDM\nSynthetic data used\n\nDrug Users identification\n\nCreate drug codelists\n\nStratify and subset codelists\nDrug combination codelists\nImport and export codelists\n\nDiagnostics\n\nPhenotypeR\nDose calculation\n\nIdentify users\n\nDrug users cohort\nIdentify new users\nConcatenation of prescriptions\n\n\nPopulation level DrugUtilisation\n\nDenominator cohort\n\nGeneral Population\nTarget Population\nExternal Denominator\n\nIncidence\n\nStandardised Incidence Rate\nIncidence Rate Ratio\nStandardised Incidence Rate Ratio\n\nPrevalence\n\nPoint Prevalence\nPeriod Prevalence\n\n\nPatient level DrugUtilisation\n\nNew users characterisation\n\nCharacterisation\nLarge Scale Characteristics (Data Driven Characterisation)\n\nIndication\n\nIndication in the data base\nPhenotype Driven indication\nData Driven indication\nLinked indication\n\nDrug use\n\nHow to calculate daily dose?\nSummarise drug use\n\nTreatments\n\nAlternative treatments\nComedications\n\nDiscontinuation\n\nAs survival\nProportion of patients covered\nMultistate analysis\n\nDrug switching\n\nDrug restart and drug switching\nTreatment pathways\nMulti-state\n\nDose escalation\n\nDose summary\nDose pathways\nDose states\n\n\nDrugUtilisation study\n\nFinal considerations\nExamples of DrugUtilisation Studies\nOther studies\n\n\n\nlibrary(DrugUtilisation)\nlibrary(omock)",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Proposed structure for the book</span>"
     ]
   },
   {
-    "objectID": "introduction.html#drugutilisation-studies",
-    "href": "introduction.html#drugutilisation-studies",
-    "title": "1  Introduction",
+    "objectID": "introduction/index.html",
+    "href": "introduction/index.html",
+    "title": "Introduction",
+    "section": "",
+    "text": "DrugUtilisation Studies",
+    "crumbs": [
+      "Introduction"
+    ]
+  },
+  {
+    "objectID": "introduction/index.html#drugutilisation-studies",
+    "href": "introduction/index.html#drugutilisation-studies",
+    "title": "Introduction",
     "section": "",
     "text": "What is a DrugUtilisation Study in general",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "Introduction"
     ]
   },
   {
-    "objectID": "structure.html",
-    "href": "structure.html",
-    "title": "2  Proposed structure for the book",
+    "objectID": "introduction/drug_data_omop.html",
+    "href": "introduction/drug_data_omop.html",
+    "title": "2  Drug data in the OMOP CDM",
     "section": "",
-    "text": "Preface\n\nIs this book for me\n\nOMOP\nR\nTidyverse\nTidy R in OMOP CDM collection\nSet up your environment\n\nAbout the authors\n\nIntroduction\n\nDrug Utilisation studies\nDrug data in the OMOP CDM\nDrug vocabularies\nDose form and routes\nStandard vs source\nSynthetic data used\n\nDrug Users identification\n\nCreate drug codelists\n\nStratify and subset codelists\nDrug combination codelists\nImport and export codelists\n\nDiagnostics\n\nPhenotypeR\nDose calculation\n\nIdentify users\n\nDrug users cohort\nIdentify new users\nConcatenation of prescriptions\n\n\nPopulation level DrugUtilisation\n\nDenominator cohort\n\nGeneral Population\nTarget Population\nExternal Denominator\n\nIncidence\n\nStandardised Incidence Rate\nIncidence Rate Ratio\nStandardised Incidence Rate Ratio\n\nPrevalence\n\nPoint Prevalence\nPeriod Prevalence\n\n\nPatient level DrugUtilisation\n\nNew users characterisation\n\nCharacterisation\nLarge Scale Characteristics (Data Driven Characterisation)\n\nIndication\n\nIndication in the data base\nPhenotype Driven indication\nData Driven indication\nLinked indication\n\nDrug use\n\nHow to calculate daily dose?\nSummarise drug use\n\nTreatments\n\nAlternative treatments\nComedications\n\nDiscontinuation\n\nAs survival\nProportion of patients covered\nMultistate analysis\n\nDrug switching\n\nDrug restart and drug switching\nTreatment pathways\nMulti-state\n\nDose escalation\n\nDose summary\nDose pathways\nDose states\n\n\nDrugUtilisation study\n\nFinal considerations\nExamples of DrugUtilisation Studies\nOther studies\n\n\n\nlibrary(DrugUtilisation)\nlibrary(omock)",
+    "text": "2.1 The Drug exposure table\nIn this chapter the organisation\nThe OMOP CDM is a domain organised Common Data Model. Clinical data (events) are recorded into different Clinical tables depending on its domain: for example, drugs records (Drug domain) are recorded in the Drug Exposure table or condition records (Condition domain).\nThe Drug Exposure table has 23 columns, each row meaning a different record. Above a brief description of the different fields.\nAs a summary the most important field that are used in the subsequent analysis are: person_id, drug_concept_id, drug_exposure_start_date, drug_exposure_end_date and quantity with: drug_type_concept_id and drug_source_concept_id that might be used at the cohort creation stage.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Proposed structure for the book</span>"
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#the-drug-exposure-table",
+    "href": "introduction/drug_data_omop.html#the-drug-exposure-table",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "",
+    "text": "drug_exposure_id Unique surrogate key for each drug record.\nperson_id Identifier for the patient for whom the drug exposure is recorded (foreign key to the person table).\ndrug_concept_id Identifier for the drug code, it must be a standard concept in the Drug domain. When a source drug record cannot be mapped, set this field to 0. The concept with the most detailed content is preferred. Concept classes are considered in the following order of precedence: Marketed Product &gt; Branded Pack / Clinical Pack &gt; Branded Drug / Clinical Drug &gt; Branded Drug Component / Clinical Drug Component &gt; Branded Drug Form / Clinical Drug Form &gt; Ingredient.\ndrug_exposure_start_date The date the drug exposure began. Valid entries include the date a prescription was written, the date it was dispensed, or the date a drug administration was recorded. It can not be missing.\ndrug_exposure_start_datetime Optional datetime precision for the start. This field is not used for the analyses described in this book.\ndrug_exposure_end_date The date the drug exposure end. This date must be determined at the ETL stage. In the analyses described in this book if missing it is assumed to be the same than the start date.\ndrug_exposure_end_datetime Optional datetime precision for the end. This field is not used for the analyses described in this book.\nverbatim_end_date The end date exactly as it appears in the source data (e.g. a discontinuation date), without any imputation. This field is not used for the analyses described in this book.\ndrug_type_concept_id Describes the provenance of the exposure record — for example, whether it is a prescription written, a prescription dispensed, a drug administered by a provider, or a patient-reported exposure. Use this field to filter to specific exposure types in analyses. See accepted Type Concepts and the OHDSI vocabulary wiki for descriptions.\nstop_reason The reason a person stopped a medication as it appears in the source (e.g. “regimen completed”, “changed”, “removed”). Often not populated. This field will be retired in CDM v6.0.\nrefills Intended refills at the time a prescription was written. Only relevant for records sourced from written prescriptions.\nquantity The amount of drug dispensed or administered.\ndays_supply The number of days of supply as recorded in the source prescription or dispensing record. This reflects the prescribed supply and may differ from the actual exposure duration. Leave empty if not verbatim in the source — do not calculate from other fields. Negative values are invalid and should lead to the record being dropped or investigated. Values exceeding 365 days warrant review.\nsig The verbatim prescription instructions as written by the provider (Latin abbreviations or plain text as found in the source).\nroute_concept_id Standard concept representing the route of administration (e.g. oral, intravenous, topical). See accepted Route concepts.\nlot_number The manufacturer’s lot or batch number for the drug product, if available. Particularly relevant for vaccines and biologics.\nprovider_id The provider associated with the drug record (e.g. the prescriber or the administering clinician). The ETL must determine which provider to record when multiple providers are involved (e.g. ordering vs. administering physician).\nvisit_occurrence_id Links the exposure to the visit during which the drug was prescribed, administered, or dispensed. Drug exposures must be explicitly associated with a visit in the source data to populate this field.\nvisit_detail_id Links to a more granular visit record in VISIT_DETAIL, if available. For example, if a drug was administered during an ICU stay within a broader inpatient visit, visit_occurrence_id would reference the full hospital stay and visit_detail_id would reference the ICU stay.\ndrug_source_value The verbatim code or text from the source system (e.g. an NDC, Gemscript, or BNF code). Retained for traceability; not intended for primary analysis.\ndrug_source_concept_id The concept ID representing the source value, if the source uses an OMOP-supported vocabulary (e.g. RxNorm, dm+d). This field is discouraged for analysis — prefer drug_concept_id for network studies.\nroute_source_value The verbatim route value from the source data. This is mapped to route_concept_id for standardisation; retained here for reference.\ndose_unit_source_value The verbatim unit of dose from the source data. This is a legacy field scheduled for deprecation in a future CDM version. It is included for backward compatibility but is not recommended for analysis.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#standard-and-source-fields",
+    "href": "introduction/drug_data_omop.html#standard-and-source-fields",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.2 Standard and Source fields",
+    "text": "2.2 Standard and Source fields\nEvery clinical entity in OMOP CDM is captured at two levels: the standard concept (drug_concept_id in the case of drug records) and the original source representation (drug_source_value and drug_source_concept_id in the case of drug records). Analyses (in general) will always rely on standard concepts so definitions are generalisable across different OMOP CDM instances.\nTo show some numbers we will explore the 27th August 2025 vocabulary version using the delphi-100k dataset.\n\nlibrary(omock)\nlibrary(duckdb)\nlibrary(dplyr)\nlibrary(ggplot2)\n\ncdm &lt;- mockCdmFromDataset(datasetName = \"delphi-100k_5.4\", source = \"duckdb\")\n\n\n\nLoading required package: DBI\n\n\n[1] 0\n\n\nNote: method with signature 'DBIConnection#Id' chosen for function 'dbExistsTable',\n target signature 'duckdb_connection#Id'.\n \"duckdb_connection#ANY\" would also be valid\n\n\n\ncdm\n\n\n\n\n── # OMOP CDM reference (duckdb) of Delphi-2M ──────────────────────────────────\n\n\n• omop tables: care_site, cdm_source, cohort_definition, concept,\nconcept_ancestor, concept_class, concept_relationship, concept_synonym,\ncondition_era, condition_occurrence, cost, death, device_exposure, domain,\ndose_era, drug_era, drug_exposure, drug_strength, fact_relationship, location,\nmeasurement, metadata, note, note_nlp, observation, observation_period,\npayer_plan_period, person, procedure_occurrence, provider, relationship,\nsource_to_concept_map, specimen, visit_detail, visit_occurrence, vocabulary\n\n\n• cohort tables: -\n\n\n• achilles tables: -\n\n\n• other tables: -\n\n\nDrug concepts are 61.6% of the total 9,018,807 concepts. In particular when referring to only Standard concepts (3,513,741) the percentage is slightly reduced to 58.3%. The Drug domain is the one containing more concepts in the OMOP CDM.\n\n\nShow code\nx &lt;- cdm$concept |&gt;\n  mutate(standard_concept = case_when(\n    standard_concept == \"S\" ~ \"Standard\",\n    standard_concept == \"C\" ~ \"Classification\",\n    .default = \"Non standard\"\n  )) |&gt;\n  group_by(standard_concept, domain_id) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(domain_id = if_else(n &lt; 5000, \"Other\", domain_id)) |&gt;\n  group_by(standard_concept, domain_id) |&gt;\n  summarise(n = sum(n), .groups = \"drop\")\nxOverall &lt;- x |&gt;\n  group_by(domain_id) |&gt;\n  summarise(n = sum(n), .groups = \"drop\") |&gt;\n  mutate(standard_concept = \"Overall\")\nsc &lt;- c(\"Overall\", \"Standard\", \"Classification\", \"Non standard\")\ndomains &lt;- sort(unique(x$domain_id))\ndomains &lt;- c(domains[domains != \"Other\"], \"Other\")\nx &lt;- union_all(x, xOverall) |&gt;\n  mutate(\n    standard_concept = factor(standard_concept, sc),\n    domain = factor(domain_id, domains)\n  )\n\nggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = domain)) +\n  geom_col() +\n  labs(x = \"\", y = \"Number of concepts\", fill = \"Domain\")\n\n\n\n\n\n\n\n\n\nStandard vs. source fields.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#vocabularies",
+    "href": "introduction/drug_data_omop.html#vocabularies",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.3 Vocabularies",
+    "text": "2.3 Vocabularies\n\n\nShow code\nx &lt;- cdm$concept |&gt;\n  filter(domain_id == \"Drug\") |&gt;\n  mutate(standard_concept = case_when(\n    standard_concept == \"S\" ~ \"Standard\",\n    standard_concept == \"C\" ~ \"Classification\",\n    .default = \"Non standard\"\n  )) |&gt;\n  group_by(standard_concept, vocabulary_id) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(vocabulary_id = if_else(n &lt; 5000, \"Other\", vocabulary_id)) |&gt;\n  group_by(standard_concept, vocabulary_id) |&gt;\n  summarise(n = sum(n), .groups = \"drop\")\nxOverall &lt;- x |&gt;\n  group_by(vocabulary_id) |&gt;\n  summarise(n = sum(n), .groups = \"drop\") |&gt;\n  mutate(standard_concept = \"Overall\")\nsc &lt;- c(\"Overall\", \"Standard\", \"Classification\", \"Non standard\")\nvocabs &lt;- sort(unique(x$vocabulary_id))\nvocabs &lt;- c(vocabs[vocabs != \"Other\"], \"Other\")\nx &lt;- union_all(x, xOverall) |&gt;\n  mutate(\n    standard_concept = factor(standard_concept, sc),\n    vocabulary = factor(vocabulary_id, vocabs)\n  )\n\nggplot(data = x, mapping = aes(x = standard_concept, y = n, fill = vocabulary)) +\n  geom_col() +\n  labs(x = \"\", y = \"Number of concepts\", fill = \"Vocabulary\")",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#concept-granularly",
+    "href": "introduction/drug_data_omop.html#concept-granularly",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.4 Concept granularly",
+    "text": "2.4 Concept granularly\nConcept granularity. Drug concepts exist at multiple levels of granularity in the RxNorm/RxNorm Extension hierarchy, from ingredient level up to marketed product. The ETL should map to the most detailed concept available from the source data.\n\nx &lt;- cdm$concept |&gt;\n  filter(domain_id == \"Drug\", standard_concept == \"S\") |&gt;\n  group_by(concept_class_id) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(concept_class_id = if_else(n &lt; 5000, \"Other\", concept_class_id)) |&gt;\n  group_by(concept_class_id) |&gt;\n  summarise(n = sum(n), .groups = \"drop\") |&gt;\n  mutate(n = 100 * n / sum(n))\nggplot(data = x, mapping = aes(x = concept_class_id, y = n, fill = concept_class_id)) +\n  geom_col() +\n  labs(y = \"Percentage (%)\", x = \"\") +\n  theme(\n    legend.position = \"none\",\n    axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)\n  )",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#brand",
+    "href": "introduction/drug_data_omop.html#brand",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.5 Brand",
+    "text": "2.5 Brand\nFrom the concept id we can deduce the brand of the product\n\nx &lt;- cdm$concept |&gt;\n  filter(domain_id == \"Drug\", standard_concept == \"S\") |&gt;\n  inner_join(\n     cdm$concept_relationship |&gt; \n       filter(relationship_id == \"Has brand name\") |&gt; \n       rename(\"concept_id\" = \"concept_id_1\"),\n    by = \"concept_id\"\n  ) |&gt;\n  group_by(concept_id) |&gt;\n  summarise(n = n_distinct(concept_id_2)) |&gt;\n  right_join(\n    cdm$concept |&gt;\n      filter(domain_id == \"Drug\", standard_concept == \"S\"),\n    by = \"concept_id\"\n  ) |&gt;\n  mutate(number_brands = coalesce(n, 0)) |&gt;\n  mutate(number_brands = if_else(\n    number_brands &lt; 10, as.character(as.integer(number_brands)), \"10+\"\n  )) |&gt;\n  group_by(number_brands, concept_class_id) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(\n    number_brands = factor(\n      number_brands, c(\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10+\")\n    ),\n    percentage = sprintf(\"%.1f\", 100 * n / sum(n)),\n    percentage = if_else(percentage == \"0.0\", \"&lt;0.1%\", paste0(percentage, \"%\"))\n  )\nggplot(data = x, mapping = aes(x = concept_class_id, y = n, fill = number_brands, label = percentage)) +\n  geom_col() +\n  theme(legend.position = \"top\") +\n  geom_text()\n\n\n\n\n\n\n\n\nFor example we can quickly search for the different COVID-19 vaccines and see which are the different brands and number of concepts associated.\n\nx &lt;- cdm$concept_ancestor |&gt;\n  filter(ancestor_concept_id == 954935) |&gt;\n  select(\"vaccine_concept_id\" = \"descendant_concept_id\") |&gt;\n  inner_join(\n    cdm$concept_relationship |&gt; \n       filter(relationship_id == \"Has brand name\") |&gt; \n       select(\n         \"vaccine_concept_id\" = \"concept_id_1\",\n         \"brand_concept_id\" = \"concept_id_2\"\n       ),\n    by = \"vaccine_concept_id\"\n  ) |&gt;\n  inner_join(\n    cdm$concept |&gt;\n      filter(domain_id == \"Drug\", standard_concept == \"S\") |&gt;\n      select(\"vaccine_concept_id\" = \"concept_id\"),\n    by = \"vaccine_concept_id\"\n  ) |&gt;\n  inner_join(\n    cdm$concept |&gt;\n      select(\"brand_concept_id\" = \"concept_id\", \"brand\" = \"concept_name\"),\n    by = \"brand_concept_id\"\n  ) |&gt;\n  group_by(brand) |&gt;\n  tally() |&gt;\n  collect()",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#ingredients",
+    "href": "introduction/drug_data_omop.html#ingredients",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.6 Ingredients",
+    "text": "2.6 Ingredients\nThere are 33,218 standard ingredients in this version of vocabularies.\n\nx &lt;- cdm$concept |&gt; \n  filter(domain_id == \"Drug\", standard_concept == \"S\") |&gt;\n  inner_join(\n    cdm$concept_ancestor |&gt;\n      inner_join(\n        cdm$concept |&gt; \n          filter(concept_class_id == \"Ingredient\", standard_concept == \"S\") |&gt;\n          select(\"ancestor_concept_id\" = \"concept_id\"),\n        by = \"ancestor_concept_id\"\n      ) |&gt;\n      select(\"concept_id\" = \"descendant_concept_id\", \"ancestor_concept_id\"),\n    by = \"concept_id\"\n  ) |&gt;\n  group_by(concept_id) |&gt;\n  summarise(n = n_distinct(ancestor_concept_id)) |&gt;\n  right_join(\n    cdm$concept |&gt; \n      filter(domain_id == \"Drug\", standard_concept == \"S\"),\n    by = \"concept_id\"\n  ) |&gt;\n  mutate(number_ingredients = coalesce(n, 0)) |&gt;\n  mutate(number_ingredients = if_else(\n    number_ingredients &lt; 10, as.character(as.integer(number_ingredients)), \"10+\"\n  )) |&gt;\n  group_by(number_ingredients) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(\n    number_ingredients = factor(\n      number_ingredients, c(\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10+\")\n    ),\n    percentage = sprintf(\"%.1f\", 100 * n / sum(n)),\n    percentage = if_else(percentage == \"0.0\", \"&lt;0.1%\", paste0(percentage, \"%\"))\n  )\nggplot(data = x, mapping = aes(x = number_ingredients, y = n, fill = number_ingredients, label = percentage)) +\n  geom_col() +\n  theme(legend.position = \"top\") +\n  geom_text()",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#daily-dose",
+    "href": "introduction/drug_data_omop.html#daily-dose",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.7 Daily dose",
+    "text": "2.7 Daily dose",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#combination-products",
+    "href": "introduction/drug_data_omop.html#combination-products",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.8 Combination products",
+    "text": "2.8 Combination products\nCombination products. A single source code representing a combination product may map to multiple standard concept IDs (one per ingredient). In such cases, multiple DRUG_EXPOSURE rows should be created, one per standard concept.",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#routes-and-drug-forms",
+    "href": "introduction/drug_data_omop.html#routes-and-drug-forms",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.9 Routes and drug forms",
+    "text": "2.9 Routes and drug forms\ndose form is only available with RxNorm\nThere is a minority of concepts (6926, 0.3%) has associated 2 dose forms, most of this records come from an overlap between Injectable Solution, Ijection and Intravenous solution, but this is a minority and in general records will only have one dose (or none) associated.\nIn Figure XX we can see the distribution of dose forms\n\nx &lt;- drugs |&gt;\n  left_join(\n     cdm$concept_relationship |&gt; \n       filter(relationship_id == \"RxNorm has dose form\") |&gt; \n       rename(\"concept_id\" = \"concept_id_1\"),\n    by = \"concept_id\"\n  ) |&gt;\n  PatientProfiles::addConceptName(column = \"concept_id_2\", nameStyle = \"\") |&gt;\n  group_by(concept_id) |&gt;\n  summarise(n = n_distinct(concept_id_2)) |&gt;\n  right_join(drugs, by = \"concept_id\") |&gt;\n  mutate(number_dose_form = coalesce(n, 0)) |&gt;\n  mutate(number_dose_form = if_else(\n    number_dose_form &lt; 10, as.character(as.integer(number_dose_form)), \"10+\"\n  )) |&gt;\n  group_by(number_dose_form) |&gt;\n  tally() |&gt;\n  collect() |&gt;\n  mutate(\n    number_dose_form = factor(\n      number_dose_form, c(\"0\", \"1\", \"2\", \"3\", \"4\", \"5\", \"6\", \"7\", \"8\", \"9\", \"10+\")\n    ),\n    percentage = sprintf(\"%.1f\", 100 * n / sum(n)),\n    percentage = if_else(percentage == \"0.0\", \"&lt;0.1%\", paste0(percentage, \"%\"))\n  )\n\ndrugs |&gt;\n  inner_join(\n     cdm$concept_relationship |&gt; \n       filter(relationship_id == \"RxNorm has dose form\") |&gt; \n       rename(\"concept_id\" = \"concept_id_1\"),\n    by = \"concept_id\"\n  ) |&gt;\n  group_by(concept_id) |&gt;\n  filter(n_distinct(concept_id_2) == 2) |&gt;\n  select(\"concept_id\", \"concept_id_2\") |&gt;\n  PatientProfiles::addConceptName(column = \"concept_id_2\", nameStyle = \"route\") |&gt;\n  select(!\"concept_id_2\") |&gt;\n  collect() |&gt;\n  arrange(concept_id, route) |&gt;\n  mutate(id = paste0(\"route_\", row_number())) |&gt;\n  tidyr::pivot_wider(names_from = \"id\", values_from = \"route\") |&gt;\n  mutate(route = paste0(route_1, \"; \", route_2)) |&gt;\n  group_by(route) |&gt;\n  tally()\n\nggplot(data = x, mapping = aes(x = number_dose_form, y = n, fill = number_dose_form, label = percentage)) +\n  geom_col() +\n  theme(legend.position = \"top\") +\n  geom_text()\n\nnumber of route categories",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "introduction/drug_data_omop.html#drug-eras",
+    "href": "introduction/drug_data_omop.html#drug-eras",
+    "title": "2  Drug data in the OMOP CDM",
+    "section": "2.10 Drug eras",
+    "text": "2.10 Drug eras\nDrug Eras. The DRUG_EXPOSURE table stores individual exposure events. The derived DRUG_ERA table (built post-ETL) collapses these into continuous exposure periods per ingredient, accounting for permissible gaps, and is often more suitable for some summary statistics.\nYou can build the Drug Era using the OmopConstructor R package.\n\nlibrary(OmopConstructor)\n\ncdm &lt;- buildDrugEra(cdm = cdm)",
+    "crumbs": [
+      "Introduction",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Drug data in the OMOP CDM</span>"
+    ]
+  },
+  {
+    "objectID": "final_remarks.html",
+    "href": "final_remarks.html",
+    "title": "Final remarks",
+    "section": "",
+    "text": "Learning more\nDrug Utilisation Studies in the OMOP Common Data Model aims to …\nIf you find this book useful then joining the Tidy R in OMOP OHDSI working group will likely be of interest. Building on many of the concepts and tools seen in this book, the Tidy R in OMOP OHDSI working group aims to (1) create and promote a unified set of resources to guide Tidy R development in OMOP and support the OHDSI community, and (2) establish an overview of available packages relevant to Tidy R programming in OMOP (tidyverse style packages). If you are interested in joining the working group then please email Martí Català or Raivo Kolde.",
+    "crumbs": [
+      "Final remarks"
+    ]
+  },
+  {
+    "objectID": "final_remarks.html#support-us",
+    "href": "final_remarks.html#support-us",
+    "title": "Final remarks",
+    "section": "Support us",
+    "text": "Support us\nWe encourage you to support this work by either citing the book in your papers or documentation, recommending it to your colleagues, or starring the GitHub repository, or simply letting us know how it helped you. Most importantly, please use it in research that results in patient benefit.",
+    "crumbs": [
+      "Final remarks"
     ]
   }
 ]

@@ -9,7 +9,7 @@
 <meta name="author" content="Martí Català">
 <meta name="dcterms.date" content="2026-05-21">
 
-<title>DrugUtilisation Studies in the OMOP Common Data Model</title>
+<title>Drug Utilisation Studies in the OMOP Common Data Model</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -35,7 +35,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/fuse.min.js"></script>
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
-<link href="./introduction.html" rel="next">
+<link href="./structure.html" rel="next">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
@@ -101,7 +101,7 @@ ul.task-list li input[type="checkbox"] {
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header">
     <div class="sidebar-title mb-0 py-0">
-      <a href="./">DrugUtilisation Studies in the OMOP Common Data Model</a> 
+      <a href="./">Drug Utilisation Studies in the OMOP Common Data Model</a> 
     </div>
       </div>
         <div class="mt-2 flex-shrink-0 align-items-center">
@@ -119,14 +119,31 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./introduction.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span></a>
+  <a href="./structure.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposed structure for the book</span></span></a>
   </div>
 </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a href="./introduction/index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Introduction</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./introduction/drug_data_omop.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Drug data in the OMOP CDM</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./structure.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Proposed structure for the book</span></span></a>
+  <a href="./final_remarks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Final remarks</span></a>
   </div>
 </li>
     </ul>
@@ -156,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">DrugUtilisation Studies in the OMOP Common Data Model</h1>
+<h1 class="title">Drug Utilisation Studies in the OMOP Common Data Model</h1>
 </div>
 
 
@@ -192,12 +209,14 @@ ul.task-list li input[type="checkbox"] {
 <p>This book is part of the collection of <strong>Tidy R programming in OMOP</strong> see accompanying books:</p>
 <ol type="1">
 <li><a href="https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/">Tidy R programming with the OMOP common data model</a></li>
-<li><a href="https://oxford-pharmacoepi.github.io/DeveloperBook/">Tidy R packages with the OMOP common data model</a></li>
+<li><a href="https://oxford-pharmacoepi.github.io/Tidy-R-packages-with-OMOP/">Tidy R packages with the OMOP common data model</a></li>
+<li><a href="https://oxford-pharmacoepi.github.io/DrugUtilisation-in-OMOP-CDM/">Drug Utilisation Studies in the OMOP Common Data Model</a></li>
 </ol>
 <p>We’ve written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see <a href="https://design.tidyverse.org/unifying.html" class="uri">https://design.tidyverse.org/unifying.html</a> for more details on these principles).</p>
 <p>New to R? We recommend you compliment the book with <a href="https://r4ds.had.co.nz/">R for data science</a></p>
 <p>New to databases? We recommend you take a look at some web tutorials on SQL, such as <a href="https://sqlbolt.com/">SQLBolt</a> or <a href="https://www.sqlzoo.net/wiki/SQL_Tutorial">SQLZoo</a></p>
 <p>New to the OMOP CDM? We’d recommend you pare this book with <a href="https://ohdsi.github.io/TheBookOfOhdsi/">The Book of OHDSI</a></p>
+<p>New to the Tidy R in OMOP ecosystem? Probably you should start with the book <a href="https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/">Tidy R programming with the OMOP common data model</a> before reading this one.</p>
 </section>
 <section id="how-is-the-book-organised" class="level2">
 <h2 class="anchored" data-anchor-id="how-is-the-book-organised">How is the book organised?</h2>
@@ -223,23 +242,23 @@ ul.task-list li input[type="checkbox"] {
 <pre><code>Finding R package dependencies ... Done!</code></pre>
 </div>
 <div class="cell-output-display">
-<div id="zyjtiwyghp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zyjtiwyghp table {
+<div id="kyrlqapekw" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kyrlqapekw table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zyjtiwyghp thead, #zyjtiwyghp tbody, #zyjtiwyghp tfoot, #zyjtiwyghp tr, #zyjtiwyghp td, #zyjtiwyghp th {
+#kyrlqapekw thead, #kyrlqapekw tbody, #kyrlqapekw tfoot, #kyrlqapekw tr, #kyrlqapekw td, #kyrlqapekw th {
   border-style: none;
 }
 
-#zyjtiwyghp p {
+#kyrlqapekw p {
   margin: 0;
   padding: 0;
 }
 
-#zyjtiwyghp .gt_table {
+#kyrlqapekw .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -265,12 +284,12 @@ ul.task-list li input[type="checkbox"] {
   border-left-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_caption {
+#kyrlqapekw .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zyjtiwyghp .gt_title {
+#kyrlqapekw .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -282,7 +301,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-width: 0;
 }
 
-#zyjtiwyghp .gt_subtitle {
+#kyrlqapekw .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -294,7 +313,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-width: 0;
 }
 
-#zyjtiwyghp .gt_heading {
+#kyrlqapekw .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -306,13 +325,13 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_bottom_border {
+#kyrlqapekw .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_col_headings {
+#kyrlqapekw .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -327,7 +346,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_col_heading {
+#kyrlqapekw .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -347,7 +366,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#zyjtiwyghp .gt_column_spanner_outer {
+#kyrlqapekw .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -359,15 +378,15 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 4px;
 }
 
-#zyjtiwyghp .gt_column_spanner_outer:first-child {
+#kyrlqapekw .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zyjtiwyghp .gt_column_spanner_outer:last-child {
+#kyrlqapekw .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zyjtiwyghp .gt_column_spanner {
+#kyrlqapekw .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -379,11 +398,11 @@ ul.task-list li input[type="checkbox"] {
   width: 100%;
 }
 
-#zyjtiwyghp .gt_spanner_row {
+#kyrlqapekw .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zyjtiwyghp .gt_group_heading {
+#kyrlqapekw .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -409,7 +428,7 @@ ul.task-list li input[type="checkbox"] {
   text-align: left;
 }
 
-#zyjtiwyghp .gt_empty_group_heading {
+#kyrlqapekw .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -424,15 +443,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: middle;
 }
 
-#zyjtiwyghp .gt_from_md > :first-child {
+#kyrlqapekw .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zyjtiwyghp .gt_from_md > :last-child {
+#kyrlqapekw .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zyjtiwyghp .gt_row {
+#kyrlqapekw .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -451,7 +470,7 @@ ul.task-list li input[type="checkbox"] {
   overflow-x: hidden;
 }
 
-#zyjtiwyghp .gt_stub {
+#kyrlqapekw .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -464,7 +483,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#zyjtiwyghp .gt_stub_row_group {
+#kyrlqapekw .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -478,15 +497,15 @@ ul.task-list li input[type="checkbox"] {
   vertical-align: top;
 }
 
-#zyjtiwyghp .gt_row_group_first td {
+#kyrlqapekw .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zyjtiwyghp .gt_row_group_first th {
+#kyrlqapekw .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zyjtiwyghp .gt_summary_row {
+#kyrlqapekw .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -496,16 +515,16 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#zyjtiwyghp .gt_first_summary_row {
+#kyrlqapekw .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_first_summary_row.thick {
+#kyrlqapekw .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zyjtiwyghp .gt_last_summary_row {
+#kyrlqapekw .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -515,7 +534,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_grand_summary_row {
+#kyrlqapekw .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -525,7 +544,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#zyjtiwyghp .gt_first_grand_summary_row {
+#kyrlqapekw .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -535,7 +554,7 @@ ul.task-list li input[type="checkbox"] {
   border-top-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_last_grand_summary_row_top {
+#kyrlqapekw .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -545,11 +564,11 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_striped {
+#kyrlqapekw .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zyjtiwyghp .gt_table_body {
+#kyrlqapekw .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -558,7 +577,7 @@ ul.task-list li input[type="checkbox"] {
   border-bottom-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_footnotes {
+#kyrlqapekw .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -572,7 +591,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_footnote {
+#kyrlqapekw .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -581,7 +600,7 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#zyjtiwyghp .gt_sourcenotes {
+#kyrlqapekw .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -595,7 +614,7 @@ ul.task-list li input[type="checkbox"] {
   border-right-color: #D3D3D3;
 }
 
-#zyjtiwyghp .gt_sourcenote {
+#kyrlqapekw .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -603,72 +622,72 @@ ul.task-list li input[type="checkbox"] {
   padding-right: 5px;
 }
 
-#zyjtiwyghp .gt_left {
+#kyrlqapekw .gt_left {
   text-align: left;
 }
 
-#zyjtiwyghp .gt_center {
+#kyrlqapekw .gt_center {
   text-align: center;
 }
 
-#zyjtiwyghp .gt_right {
+#kyrlqapekw .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zyjtiwyghp .gt_font_normal {
+#kyrlqapekw .gt_font_normal {
   font-weight: normal;
 }
 
-#zyjtiwyghp .gt_font_bold {
+#kyrlqapekw .gt_font_bold {
   font-weight: bold;
 }
 
-#zyjtiwyghp .gt_font_italic {
+#kyrlqapekw .gt_font_italic {
   font-style: italic;
 }
 
-#zyjtiwyghp .gt_super {
+#kyrlqapekw .gt_super {
   font-size: 65%;
 }
 
-#zyjtiwyghp .gt_footnote_marks {
+#kyrlqapekw .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zyjtiwyghp .gt_asterisk {
+#kyrlqapekw .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zyjtiwyghp .gt_indent_1 {
+#kyrlqapekw .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zyjtiwyghp .gt_indent_2 {
+#kyrlqapekw .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zyjtiwyghp .gt_indent_3 {
+#kyrlqapekw .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zyjtiwyghp .gt_indent_4 {
+#kyrlqapekw .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zyjtiwyghp .gt_indent_5 {
+#kyrlqapekw .gt_indent_5 {
   text-indent: 25px;
 }
 
-#zyjtiwyghp .katex-display {
+#kyrlqapekw .katex-display {
   display: inline-flex !important;
   margin-bottom: 0.75em !important;
 }
 
-#zyjtiwyghp div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+#kyrlqapekw div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
   height: 0px !important;
 }
 </style>
@@ -1109,8 +1128,8 @@ ul.task-list li input[type="checkbox"] {
   <div class="nav-page nav-page-previous">
   </div>
   <div class="nav-page nav-page-next">
-      <a href="./introduction.html" class="pagination-link" aria-label="Introduction">
-        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Introduction</span></span> <i class="bi bi-arrow-right-short"></i>
+      <a href="./structure.html" class="pagination-link" aria-label="Proposed structure for the book">
+        <span class="nav-page-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Proposed structure for the book</span></span> <i class="bi bi-arrow-right-short"></i>
       </a>
   </div>
 </nav>
