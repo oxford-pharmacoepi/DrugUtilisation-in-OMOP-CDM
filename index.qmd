@@ -6,6 +6,7 @@ This book is part of the collection of **Tidy R programming in OMOP** see accomp
 
 (1) [Tidy R programming with the OMOP common data model](https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/)
 (2) [Tidy R packages with the OMOP common data model](https://oxford-pharmacoepi.github.io/DeveloperBook/)
+(3) [Drug Utilisation Studies in the OMOP Common Data Model](https://oxford-pharmacoepi.github.io/DrugUtilisation-in-OMOP-CDM/)
 
 We've written this book for anyone interested to conduct DrugUtilisation studies using the OMOP Common Data Model and working with databases using a tidyverse style approach. That is, human centered, consistent, composable, and inclusive (see <https://design.tidyverse.org/unifying.html> for more details on these principles).
 
@@ -14,6 +15,8 @@ New to R? We recommend you compliment the book with [R for data science](https:/
 New to databases? We recommend you take a look at some web tutorials on SQL, such as [SQLBolt](https://sqlbolt.com/) or [SQLZoo](https://www.sqlzoo.net/wiki/SQL_Tutorial)
 
 New to the OMOP CDM? We'd recommend you pare this book with [The Book of OHDSI](https://ohdsi.github.io/TheBookOfOhdsi/)
+
+New to the Tidy R in OMOP ecosystem? Probably you should start with the book [Tidy R programming with the OMOP common data model](https://oxford-pharmacoepi.github.io/Tidy-R-programming-with-OMOP/) before reading this one.
 
 ## How is the book organised?
 

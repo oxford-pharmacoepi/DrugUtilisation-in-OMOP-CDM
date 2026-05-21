@@ -3,14 +3,17 @@ project:
   output-dir: "_site"
 
 book:
-  title: "DrugUtilisation Studies in the OMOP Common Data Model"
+  title: "Drug Utilisation Studies in the OMOP Common Data Model"
   author:
     - name: Martí Català
   date: today
   chapters:
     - index.qmd
-    - introduction.qmd
     - structure.qmd
+    - part: introduction/index.qmd
+      chapters:
+        - introduction/drug_data_omop.qmd
+    - final_remarks.qmd
 
 #bibliography: references.bib
 
