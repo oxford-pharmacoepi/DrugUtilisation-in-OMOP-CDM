@@ -43,9 +43,9 @@ jobs:
         run: |
           quarto render --to pdf --output drugutilisation-in-omop.pdf
 
-      - name: Move pdf to data folder
+      - name: Move pdf outside _site folder
         run: |
-          mv "_site/drugutilisation-in-omop.pdf" "my_data/drugutilisation-in-omop.pdf"
+          mv "_site/drugutilisation-in-omop.pdf" "drugutilisation-in-omop.pdf"
 
       - name: Render book in html
         run: |
@@ -53,7 +53,7 @@ jobs:
 
       - name: Move pdf back to _site folder
         run: |
-          mv "my_data/drugutilisation-in-omop.pdf" "_site/drugutilisation-in-omop.pdf"
+          mv "drugutilisation-in-omop.pdf" "_site/drugutilisation-in-omop.pdf"
 
       # For PRs, just render (no publishing)
       - name: Exit if PR
